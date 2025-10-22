@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { tap } from 'rxjs';
 import { CompaniesStoreService } from 'src/app/services/companies-store.service';
 
 @Component({

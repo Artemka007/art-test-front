@@ -1,4 +1,10 @@
-<article *ngIf="company" class="company-item">
+<article
+  *ngIf="company"
+  class="company-item"
+  tabindex="1"
+  (keydown)="onClick()"
+  (click)="onClick()"
+>
   <img [attr.src]="company.logo" alt="" class="company-item__logo" />
   <h3 class="company-item__name">Suffix {{ company.business_name }}</h3>
   <p class="company-item__industry">Industry: {{ company.industry }}</p>
