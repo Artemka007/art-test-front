@@ -1,4 +1,4 @@
-export type Company = {
+export interface Company {
   id: 42;
   uid: string;
   business_name: string;

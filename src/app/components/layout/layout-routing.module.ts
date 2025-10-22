@@ -5,27 +5,30 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: '/list'  
+    redirectTo: '/list',
   },
   {
     path: 'list',
     pathMatch: 'full',
-    loadChildren: () => import('../company-list/company-list.module').then(m => m.CompanyListModule),
+    loadChildren: () =>
+      import('../company-list/company-list.module').then(m => m.CompanyListModule),
   },
   {
     path: 'detail/:id',
     pathMatch: 'full',
-    loadChildren: () => import('../company-detail/company-detail.module').then(m => m.CompanyDetailModule),
+    loadChildren: () =>
+      import('../company-detail/company-detail.module').then(m => m.CompanyDetailModule),
   },
   {
     path: 'map',
     pathMatch: 'full',
-    loadChildren: () => import('../company-yandex-map/company-yandex-map.module').then(m => m.CompanyYandexMapModule),
-  }
+    loadChildren: () =>
+      import('../company-yandex-map/company-yandex-map.module').then(m => m.CompanyYandexMapModule),
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class LayoutRoutingModule { }
+export class LayoutRoutingModule {}
