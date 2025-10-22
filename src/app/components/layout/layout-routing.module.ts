@@ -3,15 +3,23 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '/list',
+    path: '',
+    pathMatch: 'full',
+    redirectTo: '/list'  
+  },
+  {
+    path: 'list',
+    pathMatch: 'full',
     loadChildren: () => import('../company-list/company-list.module').then(m => m.CompanyListModule),
   },
   {
-    path: '/detail/:id',
+    path: 'detail/:id',
+    pathMatch: 'full',
     loadChildren: () => import('../company-detail/company-detail.module').then(m => m.CompanyDetailModule),
   },
   {
-    path: '/map',
+    path: 'map',
+    pathMatch: 'full',
     loadChildren: () => import('../company-yandex-map/company-yandex-map.module').then(m => m.CompanyYandexMapModule),
   }
 ];
