@@ -1,1 +1,21 @@
-<router-outlet></router-outlet>
+<div class="layout">
+  <header class="layout__header">
+    <a
+      class="layout__header__link"
+      [routerLink]="'/companies'"
+      routerLinkActive="layout__header__link--active"
+    >
+      Список компаний
+    </a>
+    <a
+      class="layout__header__link"
+      [routerLink]="'/companies'"
+      routerLinkActive="layout__header__link--active"
+    >
+      Показать на карте
+    </a>
+  </header>
+  <main class="layout__main">
+    <router-outlet></router-outlet>
+  </main>
+</div>

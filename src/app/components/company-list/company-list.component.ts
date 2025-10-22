@@ -9,7 +9,8 @@ import { CompaniesStoreService } from 'src/app/services/companies-store.service'
 })
 export class CompanyListComponent implements OnInit {
   private _companiesStoreService = inject(CompaniesStoreService);
-  companies$ = this._companiesStoreService.companies$.pipe(tap(console.log));
+  companies$ = this._companiesStoreService.companies$;
+  loading$ = this._companiesStoreService.loading$;
 
   ngOnInit(): void {
     this._companiesStoreService.fetchAllCompanies();
