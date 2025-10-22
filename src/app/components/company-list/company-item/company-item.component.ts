@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { Company } from 'src/app/types/company.type';
 
 @Component({
@@ -7,5 +8,14 @@ import { Company } from 'src/app/types/company.type';
   styleUrls: ['./company-item.component.scss'],
 })
 export class CompanyItemComponent {
+  private _router = inject(Router);
+
   @Input() company?: Company;
+
+  onClick = () => {
+    if (!this.company) {
+      return;
+    }
+    this._router.navigate(['detail', this.company?.id]);
+  };
 }
