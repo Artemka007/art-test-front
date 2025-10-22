@@ -26,8 +26,8 @@ export class CompaniesStoreService {
           this._loading$.next(false);
         })
       )
-      .subscribe(companies => {
-        this._companies$.next(companies);
+      .subscribe(({ data }) => {
+        this._companies$.next(data);
       });
   };
 

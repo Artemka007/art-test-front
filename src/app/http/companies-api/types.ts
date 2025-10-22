@@ -1,3 +1,5 @@
+import { Company } from 'src/app/types/company.type';
+
 export type PaginationQuery = Partial<{
   page: number;
   per_page: number;
@@ -9,3 +11,15 @@ export type PaginationQuery = Partial<{
   sort_by: string;
   sort_order: string;
 }>;
+
+export interface CompaniesResponse {
+  data: Company[];
+  has_next: true;
+  has_prev: false;
+  limit: 50;
+  offset: 0;
+  page: 1;
+  per_page: 50;
+  total: 1000;
+  total_pages: 20;
+}

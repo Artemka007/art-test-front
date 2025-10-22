@@ -1,4 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { tap } from 'rxjs';
 import { CompaniesStoreService } from 'src/app/services/companies-store.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { CompaniesStoreService } from 'src/app/services/companies-store.service'
 })
 export class CompanyListComponent implements OnInit {
   private _companiesStoreService = inject(CompaniesStoreService);
-  companies$ = this._companiesStoreService.companies$;
+  companies$ = this._companiesStoreService.companies$.pipe(tap(console.log));
 
   ngOnInit(): void {
     this._companiesStoreService.fetchAllCompanies();
