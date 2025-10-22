@@ -1,20 +1,17 @@
 @let companies = companies$ | async;
 @let isLoading = loading$ | async;
-@if (isLoading) {
-  <div class="company-list">
-    <h2 class="company-list__header">Компании</h2>
-    <span class="company-list__empty">Loading...</span>
-  </div>
-} @else {
-  <div class="company-list">
-    <h2 class="company-list__header">Компании</h2>
-    @if (companies && companies.length) {
-      <div class="company-list__items">
-        <app-company-item *ngFor="let company of companies" [company]="company"></app-company-item>
-      </div>
-    }
-    @if (companies && !companies.length) {
-      <span class="company-list__empty">Company list is empty.</span>
-    }
-  </div>
-}
+
+<div class="company-list">
+  <h2 class="company-list__header">Компании</h2>
+  @if (!companies && isLoading) {
+    <span class="company-list__placeholder">Loading...</span>
+  }
+  @if (companies && companies.length && !isLoading) {
+    <div class="company-list__items">
+      <app-company-item *ngFor="let company of companies" [company]="company"></app-company-item>
+    </div>
+  }
+  @if (companies && !companies.length && !isLoading) {
+    <span class="company-list__placeholder">Company list is empty.</span>
+  }
+</div>

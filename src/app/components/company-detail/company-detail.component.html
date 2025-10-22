@@ -1,5 +1,19 @@
 @let company = company$ | async;
-@if (company) {
+@let isLoading = loading$ | async;
+
+@if (!company && isLoading) {
+  <div class="company-detail">
+    <h5 class="company-detail__placeholder">Loading...</h5>
+  </div>
+}
+
+@if (!company && !isLoading) {
+  <div class="company-detail">
+    <h5 class="company-detail__placeholder">Error while fetching...</h5>
+  </div>
+}
+
+@if (company && !isLoading) {
   <div class="company-detail">
     <div class="company-detail__header">
       <img [src]="company.logo" [alt]="" class="company-detail__logo" />

@@ -3,6 +3,13 @@
   margin: 0 auto;
   padding: 2rem;
 
+  &__placeholder {
+    text-align: center;
+    padding: 3rem;
+    color: #7f8c8d;
+    font-size: 1.2rem;
+  }
+
   &__header {
     display: flex;
     align-items: flex-start;

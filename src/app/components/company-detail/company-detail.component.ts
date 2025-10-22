@@ -11,6 +11,7 @@ export class CompanyDetailComponent implements OnInit {
   private _activatedRoute = inject(ActivatedRoute);
   private _companiesStoreService = inject(CompaniesStoreService);
 
+  loading$ = this._companiesStoreService.loading$;
   company$ = this._companiesStoreService.currentCompany$;
 
   ngOnInit(): void {
