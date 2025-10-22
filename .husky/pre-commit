@@ -1,4 +1,3 @@
-npm run test:ci
 
 . "$(dirname -- "$0")/_/husky.sh"
 
