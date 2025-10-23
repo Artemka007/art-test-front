@@ -14,8 +14,8 @@ export type PaginationQuery = Partial<{
 
 export interface CompaniesResponse {
   data: Company[];
-  has_next: true;
-  has_prev: false;
+  has_next: boolean;
+  has_prev: boolean;
   limit: 50;
   offset: 0;
   page: 1;
