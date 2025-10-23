@@ -4,7 +4,9 @@ export enum SortOrder {
 }
 
 export enum SortBy {
-  NAME = 'business_name',
+  NAME = 'name',
   TYPE = 'type',
   INDUSTRY = 'industry',
 }
+
+export const SORT_BY = [SortBy.NAME, SortBy.TYPE, SortBy.INDUSTRY];
