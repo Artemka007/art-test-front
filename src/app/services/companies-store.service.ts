@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { CompaniesApiService } from '../http/companies-api/companies-api.service';
 import { BehaviorSubject, combineLatest, finalize, first, Subject, switchMap } from 'rxjs';
-import { Company } from '../types/company.type';
-import {
+import type { Company } from '../types/company.type';
+import type {
   CompaniesResponsePagination,
   FilterOptions,
   PaginationOptions,
@@ -92,13 +92,13 @@ export class CompaniesStoreService {
     this.fetchCompanies({ append: true });
   };
 
-  sortCompanies = (options: SortOptions) => {
+  sortCompanies = (options: SortOptions | null) => {
     this._sortOptions$.next(options);
     this._paginationOptions$.next(null);
     this.fetchCompanies();
   };
 
-  filterCompanies = (options: FilterOptions) => {
+  filterCompanies = (options: FilterOptions | null) => {
     this._filterOptions$.next(options);
     this._paginationOptions$.next(null);
     this.fetchCompanies();

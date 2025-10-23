@@ -1,14 +1,14 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { Company } from 'src/app/types/company.type';
-import { NgIf } from '@angular/common';
+import type { Company } from 'src/app/types/company.type';
 
 @Component({
   selector: 'app-company-item',
   templateUrl: './company-item.component.html',
   styleUrls: ['./company-item.component.scss'],
   standalone: true,
-  imports: [NgIf],
+  imports: [CommonModule],
 })
 export class CompanyItemComponent {
   private _router = inject(Router);

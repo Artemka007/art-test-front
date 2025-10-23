@@ -7,9 +7,9 @@ export type SortOptions = Partial<{
 }>;
 
 export type FilterOptions = Partial<{
-  q: string;
-  industry: string;
-  company_type: string;
+  q: string | null;
+  industry: string | null;
+  company_type: string | null;
 }>;
 
 export type PaginationOptions = Partial<{

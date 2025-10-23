@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Company } from '../../types/company.type';
 import { CompaniesResponse, Query } from './types';
 
@@ -10,7 +10,9 @@ export class CompaniesApiService {
   private _http = inject(HttpClient);
 
   getCompanies = ({ query }: { query?: Query }) => {
-    return this._http.get<CompaniesResponse>('/companies', { params: query });
+    return this._http.get<CompaniesResponse>('/companies', {
+      params: query as unknown as HttpParams,
+    }); // нужно поскольку query может содержать ключи null, и в параметрах это работает, но тип не принимается с ключами null
   };
 
   getCompany = ({ companyId }: { companyId: number }) => {
