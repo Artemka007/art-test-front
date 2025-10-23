@@ -1,11 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CompaniesStoreService } from 'src/app/services/companies-store.service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-company-detail',
   templateUrl: './company-detail.component.html',
   styleUrls: ['./company-detail.component.scss'],
+  standalone: true,
+  imports: [AsyncPipe],
 })
 export class CompanyDetailComponent implements OnInit {
   private _activatedRoute = inject(ActivatedRoute);
