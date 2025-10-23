@@ -16,6 +16,6 @@ export class CompanyListComponent implements OnInit {
   loading$ = this._companiesStoreService.loading$;
 
   ngOnInit(): void {
-    this._companiesStoreService.fetchAllCompanies();
+    this._companiesStoreService.fetchCompanies();
   }
 }

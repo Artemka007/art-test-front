@@ -1,5 +1,5 @@
 export interface Company {
-  id: 42;
+  id: number;
   uid: string;
   business_name: string;
   suffix: string;
