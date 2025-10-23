@@ -21,8 +21,7 @@ export type PaginationOptions = Partial<{
 
 export type Query = SortOptions & FilterOptions & PaginationOptions;
 
-export interface CompaniesResponse {
-  data: Company[];
+export interface CompaniesResponsePagination {
   has_next: boolean;
   has_prev: boolean;
   limit: number;
@@ -32,3 +31,7 @@ export interface CompaniesResponse {
   total: number;
   total_pages: number;
 }
+
+export type CompaniesResponse = {
+  data: Company[];
+} & CompaniesResponsePagination;

@@ -1,8 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 import { CompaniesApiService } from '../http/companies-api/companies-api.service';
-import { BehaviorSubject, combineLatest, finalize, first, Subject, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, finalize, first, Subject, switchMap } from 'rxjs';
 import { Company } from '../types/company.type';
-import { FilterOptions, PaginationOptions, SortOptions } from 'src/app/http/companies-api/types';
+import {
+  CompaniesResponsePagination,
+  FilterOptions,
+  PaginationOptions,
+  SortOptions,
+} from 'src/app/http/companies-api/types';
 
 @Injectable({
   providedIn: 'root',
@@ -10,14 +15,14 @@ import { FilterOptions, PaginationOptions, SortOptions } from 'src/app/http/comp
 export class CompaniesStoreService {
   private _loading$ = new BehaviorSubject(false);
 
-  private _companies$ = new Subject<Company[]>();
+  private _companies$ = new BehaviorSubject<Company[] | null>(null);
   private _currentCompany$ = new Subject<Company>();
 
   private _sortOptions$ = new BehaviorSubject<SortOptions | null>(null);
   private _filterOptions$ = new BehaviorSubject<FilterOptions | null>(null);
   private _paginationOptions$ = new BehaviorSubject<PaginationOptions | null>(null);
 
-  private _paginationCache$ = new BehaviorSubject<PaginationOptions[]>([]);
+  private _lastPagination$ = new BehaviorSubject<CompaniesResponsePagination | null>(null);
 
   public readonly loading$ = this._loading$.asObservable();
 
@@ -30,8 +35,9 @@ export class CompaniesStoreService {
 
   private _companiesApiService = inject(CompaniesApiService);
 
-  fetchCompanies = () => {
+  fetchCompanies = (options?: { append: boolean }) => {
     this._loading$.next(true);
+
     combineLatest([this.sortOptions$, this.filterOptions$, this.paginationOptions$])
       .pipe(
         first(),
@@ -48,13 +54,16 @@ export class CompaniesStoreService {
           this._loading$.next(false);
         })
       )
-      .subscribe(({ data }) => {
-        this._companies$.next(data);
+      .subscribe(({ data, ...paginationData }) => {
+        const appendedCompanies = options?.append ? this._companies$.getValue() || [] : [];
+        this._companies$.next([...appendedCompanies, ...data]);
+        this._lastPagination$.next(paginationData);
       });
   };
 
   fetchCompany = ({ companyId }: { companyId: number }) => {
     this._loading$.next(true);
+
     this._companiesApiService
       .getCompany({ companyId })
       .pipe(
@@ -70,18 +79,28 @@ export class CompaniesStoreService {
       });
   };
 
+  loadNextPage = () => {
+    const lastPagination = this._lastPagination$.getValue();
+    if (!lastPagination?.has_next) {
+      return;
+    }
+    this._paginationOptions$.next({
+      page: lastPagination.page + 1,
+      per_page: lastPagination.per_page,
+      limit: lastPagination.limit,
+    });
+    this.fetchCompanies({ append: true });
+  };
+
   sortCompanies = (options: SortOptions) => {
     this._sortOptions$.next(options);
+    this._paginationOptions$.next(null);
     this.fetchCompanies();
   };
 
   filterCompanies = (options: FilterOptions) => {
     this._filterOptions$.next(options);
-    this.fetchCompanies();
-  };
-
-  paginateCompanies = (options: PaginationOptions) => {
-    this._paginationOptions$.next(options);
+    this._paginationOptions$.next(null);
     this.fetchCompanies();
   };
 }

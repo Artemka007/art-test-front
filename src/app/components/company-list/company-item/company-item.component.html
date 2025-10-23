@@ -6,7 +6,7 @@
   (click)="onClick()"
 >
   <img [attr.src]="company.logo" alt="" class="company-item__logo" />
-  <h3 class="company-item__name">{{ company.business_name }}</h3>
+  <h3 class="company-item__name">{{ company.suffix }} {{ company.business_name }}</h3>
   <p class="company-item__industry">Industry: {{ company.industry }}</p>
   <p class="company-item__type">Type: {{ company.type }}</p>
 </article>

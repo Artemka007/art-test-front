@@ -1,17 +1,19 @@
 @let companies = companies$ | async;
 @let isLoading = loading$ | async;
 
-<div class="company-list">
+<div #companyList class="company-list" (scroll)="onScroll()">
   <h2 class="company-list__header">Компании</h2>
-  @if (!companies && isLoading) {
-    <span class="company-list__placeholder">Loading...</span>
-  }
-  @if (companies && companies.length && !isLoading) {
+  @if (companies && companies.length) {
     <div class="company-list__items">
-      <app-company-item *ngFor="let company of companies" [company]="company"></app-company-item>
+      @for (company of companies; track company.id) {
+        <app-company-item [company]="company"></app-company-item>
+      }
     </div>
   }
   @if (companies && !companies.length && !isLoading) {
     <span class="company-list__placeholder">Company list is empty.</span>
+  }
+  @if (isLoading) {
+    <span class="company-list__placeholder">Loading...</span>
   }
 </div>
