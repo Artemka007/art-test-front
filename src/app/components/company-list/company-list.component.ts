@@ -1,6 +1,6 @@
 import { Component, ElementRef, inject, OnInit, viewChild } from '@angular/core';
 import { CompaniesStoreService } from 'src/app/services/companies-store.service';
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { CompanyItemComponent } from './company-item/company-item.component';
 import { first } from 'rxjs';
 import { CompanyFilterComponent } from './company-filter/company-filter.component';
@@ -11,13 +11,7 @@ import { CompanySortComponent } from './company-sort/company-sort.component';
   templateUrl: './company-list.component.html',
   styleUrls: ['./company-list.component.scss'],
   standalone: true,
-  imports: [
-    CommonModule,
-    CompanyItemComponent,
-    AsyncPipe,
-    CompanyFilterComponent,
-    CompanySortComponent,
-  ],
+  imports: [CompanyItemComponent, AsyncPipe, CompanyFilterComponent, CompanySortComponent],
 })
 export class CompanyListComponent implements OnInit {
   companyList = viewChild.required<ElementRef<HTMLElement>>('companyList');

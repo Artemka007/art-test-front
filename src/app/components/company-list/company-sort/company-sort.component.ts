@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { first } from 'rxjs';
 import { SORT_BY, SortBy } from 'src/app/http/companies-api/enums';
@@ -9,7 +9,7 @@ import { CompaniesStoreService } from 'src/app/services/companies-store.service'
   templateUrl: './company-sort.component.html',
   styleUrl: './company-sort.component.scss',
   standalone: true,
-  imports: [CommonModule],
+  imports: [AsyncPipe],
 })
 export class CompanySortComponent {
   private _companiesStoreService = inject(CompaniesStoreService);
