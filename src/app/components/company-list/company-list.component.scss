@@ -1,4 +1,15 @@
+:host {
+  display: flex;
+  width: 100%;
+}
+
 .company-list {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  width: 100%;
+  padding-inline: 2rem;
+  padding-bottom: 2rem;
   &__header {
     display: flex;
     align-items: center;
