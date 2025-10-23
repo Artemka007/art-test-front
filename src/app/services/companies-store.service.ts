@@ -16,7 +16,7 @@ export class CompaniesStoreService {
   private _loading$ = new BehaviorSubject(false);
 
   private _companies$ = new BehaviorSubject<Company[] | null>(null);
-  private _currentCompany$ = new Subject<Company>();
+  private _currentCompany$ = new Subject<Company | null>();
 
   private _sortOptions$ = new BehaviorSubject<SortOptions | null>(null);
   private _filterOptions$ = new BehaviorSubject<FilterOptions | null>(null);
@@ -102,5 +102,19 @@ export class CompaniesStoreService {
     this._filterOptions$.next(options);
     this._paginationOptions$.next(null);
     this.fetchCompanies();
+  };
+
+  clearOptions = () => {
+    this._sortOptions$.next(null);
+    this._filterOptions$.next(null);
+    this._paginationOptions$.next(null);
+  };
+
+  destroyCurrentCompany = () => {
+    this._currentCompany$.next(null);
+  };
+
+  destroyAllCompanies = () => {
+    this._companies$.next(null);
   };
 }

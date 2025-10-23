@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, OnInit, viewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnDestroy, OnInit, viewChild } from '@angular/core';
 import { CompaniesStoreService } from 'src/app/services/companies-store.service';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { CompanyItemComponent } from './company-item/company-item.component';
@@ -19,7 +19,7 @@ import { CompanySortComponent } from './company-sort/company-sort.component';
     CompanySortComponent,
   ],
 })
-export class CompanyListComponent implements OnInit {
+export class CompanyListComponent implements OnInit, OnDestroy {
   companyList = viewChild.required<ElementRef<HTMLElement>>('companyList');
 
   private _companiesStoreService = inject(CompaniesStoreService);
@@ -29,6 +29,11 @@ export class CompanyListComponent implements OnInit {
 
   ngOnInit(): void {
     this._companiesStoreService.fetchCompanies();
+  }
+
+  ngOnDestroy(): void {
+    this._companiesStoreService.destroyAllCompanies();
+    this._companiesStoreService.clearOptions();
   }
 
   onScroll = () => {

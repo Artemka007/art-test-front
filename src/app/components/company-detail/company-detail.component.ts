@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CompaniesStoreService } from 'src/app/services/companies-store.service';
 import { AsyncPipe } from '@angular/common';
@@ -10,7 +10,7 @@ import { AsyncPipe } from '@angular/common';
   standalone: true,
   imports: [AsyncPipe],
 })
-export class CompanyDetailComponent implements OnInit {
+export class CompanyDetailComponent implements OnInit, OnDestroy {
   private _activatedRoute = inject(ActivatedRoute);
   private _companiesStoreService = inject(CompaniesStoreService);
 
@@ -22,5 +22,9 @@ export class CompanyDetailComponent implements OnInit {
     if (id != null && !isNaN(Number(id))) {
       this._companiesStoreService.fetchCompany({ companyId: Number(id) });
     }
+  }
+
+  ngOnDestroy(): void {
+    this._companiesStoreService.destroyCurrentCompany();
   }
 }
