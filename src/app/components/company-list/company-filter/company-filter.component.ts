@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
@@ -11,7 +10,7 @@ import { CompaniesStoreService } from 'src/app/services/companies-store.service'
   templateUrl: './company-filter.component.html',
   styleUrl: './company-filter.component.scss',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
 })
 export class CompanyFilterComponent implements OnInit, OnDestroy {
   private _formBuilder = inject(FormBuilder);
