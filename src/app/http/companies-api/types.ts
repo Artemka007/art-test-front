@@ -1,25 +1,34 @@
 import { Company } from 'src/app/types/company.type';
+import { SortBy, SortOrder } from './enums';
 
-export type PaginationQuery = Partial<{
+export type SortOptions = Partial<{
+  sort_by: SortBy;
+  sort_order: SortOrder;
+}>;
+
+export type FilterOptions = Partial<{
+  q: string;
+  industry: string;
+  company_type: string;
+}>;
+
+export type PaginationOptions = Partial<{
   page: number;
   per_page: number;
   count: number;
   limit: number;
-  q: string;
-  industry: string;
-  company_type: string;
-  sort_by: string;
-  sort_order: string;
 }>;
+
+export type Query = SortOptions & FilterOptions & PaginationOptions;
 
 export interface CompaniesResponse {
   data: Company[];
   has_next: boolean;
   has_prev: boolean;
-  limit: 50;
-  offset: 0;
-  page: 1;
-  per_page: 50;
-  total: 1000;
-  total_pages: 20;
+  limit: number;
+  offset: number;
+  page: number;
+  per_page: number;
+  total: number;
+  total_pages: number;
 }
