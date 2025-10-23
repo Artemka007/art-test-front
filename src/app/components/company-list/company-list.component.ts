@@ -1,22 +1,28 @@
-import { Component, ElementRef, inject, OnDestroy, OnInit, viewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, viewChild } from '@angular/core';
 import { CompaniesStoreService } from 'src/app/services/companies-store.service';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { CompanyItemComponent } from './company-item/company-item.component';
-import { first, Subject } from 'rxjs';
+import { first } from 'rxjs';
+import { CompanyFilterComponent } from './company-filter/company-filter.component';
+import { CompanySortComponent } from './company-sort/company-sort.component';
 
 @Component({
   selector: 'app-company-list',
   templateUrl: './company-list.component.html',
   styleUrls: ['./company-list.component.scss'],
   standalone: true,
-  imports: [CommonModule, CompanyItemComponent, AsyncPipe],
+  imports: [
+    CommonModule,
+    CompanyItemComponent,
+    AsyncPipe,
+    CompanyFilterComponent,
+    CompanySortComponent,
+  ],
 })
-export class CompanyListComponent implements OnInit, OnDestroy {
+export class CompanyListComponent implements OnInit {
   companyList = viewChild.required<ElementRef<HTMLElement>>('companyList');
 
   private _companiesStoreService = inject(CompaniesStoreService);
-
-  private _destroyed$ = new Subject<void>();
 
   companies$ = this._companiesStoreService.companies$;
   loading$ = this._companiesStoreService.loading$;
@@ -38,9 +44,4 @@ export class CompanyListComponent implements OnInit, OnDestroy {
       this._companiesStoreService.loadNextPage();
     });
   };
-
-  ngOnDestroy(): void {
-    this._destroyed$.next();
-    this._destroyed$.complete();
-  }
 }

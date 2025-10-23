@@ -1,6 +1,10 @@
 @let companies = companies$ | async;
 @let isLoading = loading$ | async;
 
+<aside class="company-controls">
+  <app-company-sort></app-company-sort>
+  <app-company-filter></app-company-filter>
+</aside>
 <div #companyList class="company-list" (scroll)="onScroll()">
   <h2 class="company-list__header">Компании</h2>
   @if (companies && companies.length) {

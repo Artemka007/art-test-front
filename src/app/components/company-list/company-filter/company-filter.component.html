@@ -1,0 +1,36 @@
+<form [formGroup]="filterForm" class="company-filter">
+  <h3 class="company-filter__title">Фильтры</h3>
+  <div class="company-filter__fields">
+    <div class="company-filter__field">
+      <label for="q" class="company-filter__label">Название компании</label>
+      <input
+        type="text"
+        id="q"
+        formControlName="q"
+        placeholder="Введите название..."
+        class="company-filter__input"
+      />
+    </div>
+    <div class="company-filter__field">
+      <label for="company_type" class="company-filter__label">Тип компании</label>
+      <select id="company_type" formControlName="company_type" class="company-filter__select">
+        <option value="">Сбросить</option>
+        @for (type of types; track type) {
+          <option [value]="type">{{ type }}</option>
+        }
+      </select>
+    </div>
+    <div class="company-filter__field">
+      <label for="industry" class="company-filter__label">Вид деятельности</label>
+      <select id="industry" formControlName="industry" class="company-filter__select">
+        <option value="">Сбросить</option>
+        @for (industry of industries; track industry) {
+          <option [value]="industry">{{ industry }}</option>
+        }
+      </select>
+    </div>
+  </div>
+  <button type="button" class="company-filter__clear" (click)="clearFilters()">
+    Сбросить фильтры
+  </button>
+</form>
