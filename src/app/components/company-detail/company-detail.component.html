@@ -1,0 +1,67 @@
+@let company = company$ | async;
+@let isLoading = loading$ | async;
+
+@if (!company && isLoading) {
+  <div class="company-detail">
+    <h5 class="company-detail__placeholder">Loading...</h5>
+  </div>
+}
+
+@if (!company && !isLoading) {
+  <div class="company-detail">
+    <h5 class="company-detail__placeholder">Error while fetching...</h5>
+  </div>
+}
+
+@if (company && !isLoading) {
+  <div class="company-detail">
+    <div class="company-detail__header">
+      <img [src]="company.logo" [alt]="" class="company-detail__logo" />
+      <div class="company-detail__title-section">
+        <h1 class="company-detail__title">{{ company.suffix }} "{{ company.business_name }}"</h1>
+        <p class="company-detail__slogan">{{ company.catch_phrase }}</p>
+      </div>
+    </div>
+
+    <div class="company-detail__content">
+      <article class="company-detail__info-card">
+        <div class="company-detail__info-section">
+          <h2 class="company-detail__section-title">Основная информация</h2>
+
+          <div class="company-detail__info-row">
+            <span class="company-detail__label">Вид деятельности:</span>
+            <span class="company-detail__value">{{ company.industry }}</span>
+          </div>
+
+          <div class="company-detail__info-row">
+            <span class="company-detail__label">Тип компании:</span>
+            <span class="company-detail__value">{{ company.type }}</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="company-detail__info-card">
+        <div class="company-detail__info-section">
+          <h2 class="company-detail__section-title">Контактная информация</h2>
+
+          <div class="company-detail__info-row">
+            <span class="company-detail__label">Телефон:</span>
+            <a
+              [href]="'tel:' + company.phone_number"
+              class="company-detail__value company-detail__phone"
+            >
+              {{ company.phone_number }}
+            </a>
+          </div>
+
+          <div class="company-detail__info-row">
+            <span class="company-detail__label">Адрес:</span>
+            <span class="company-detail__value company-detail__address">
+              {{ company.full_address }}
+            </span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+}

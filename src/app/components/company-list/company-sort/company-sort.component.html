@@ -1,0 +1,15 @@
+<div class="company-sort">
+  <h3 class="company-sort__title">Сортировка</h3>
+  <div class="company-sort__options">
+    @for (option of sortTabs; track option) {
+      <button
+        class="company-sort__option"
+        [class.company-sort__option--active]="(activeSortOptions$ | async)?.sort_by === option"
+        (click)="onSortClick(option)"
+        type="button"
+      >
+        <span class="company-sort__label">{{ option }}</span>
+      </button>
+    }
+  </div>
+</div>
